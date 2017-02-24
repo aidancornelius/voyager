@@ -1,0 +1,87 @@
+<% title "Modules" %>
+<% description "Assessment Ninja is loaded with theory, and practical suggestions for implementing Assessment as Learning. Check out each of the modules here." %>
+<div class="container">
+
+  <h2 class="blank-heading text-xs-center">🚀 Modules</h2>
+  <p class="text-xs-center"><% if current_user.present? %><%= link_to 'Dashboard', dashboard_path, class: "btn btn-outline-primary" %><% else %><%= link_to "Buy Now", new_user_registration_path, class: "btn btn-outline-primary" %><% end %></p>
+
+  <% if @lessons.count < 1 %>
+  <p class="text-xs-center">There are no modules here, yet!</p>
+  <br><br>
+  <% else %>
+  <% @lessons.each do |lesson| %>
+  <% if current_user.present? %>
+  <div id="smj_<%= lesson.id %>" class="row top-pad mainrow<%= if !(current_user.created_at + lesson.unlock.weeks).past? then " mod-locked" end %>">
+    <div class="col-xs-12"> <%= if !(current_user.created_at + lesson.unlock.weeks).past? then "<p class='text-xs-center'><strong>Available in #{time_ago_in_words(current_user.created_at + lesson.unlock.weeks)}</strong></p><hr>".html_safe end %>
+      <h3><%= lesson.title %></h3>
+      <%= mdrender(lesson.description).html_safe %>
+      <% if (current_user.created_at + lesson.unlock.weeks).past? %>
+      <hr>
+      <p class="text-xs-center"><a href="#toggle_module_<%= lesson.id %>" class="btn btn-outline-success btn-block show_lesson_grid" data-module="<%= lesson.id %>">Show All Lessons</a></p>
+      <div id="module_<%= lesson.id %>" class="lesson_grid lesson_grid_<%= lesson.id %> module_<%= lesson.id %>">
+        <br>
+        <% lesson.lesson_components.order(:order).each do |component| %>
+        <a href="<%= "/modules/#{lesson.slug}/#{component.slug}" %>" class="btn <% if (completion = Completion.where(user_id: current_user.id, lesson_component_id: component.id)).count >= 1 %>btn-outline-secondary<% else %>btn-outline-primary<% end %> btn-block">&mdash; Part <%= component.order %> <% if completion.present? %>&mdash; Completed <% end %> &mdash; <br> <%= component.title %></a>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <% else %>
+  <% if lesson.public_feature.present? %>
+  <h2 class="blank-heading text-xs-center">Inside <%= lesson.title %></h2>
+  <br>
+  </div>
+  <div class="container-fluid video-box">
+  <div class="inside">
+    <div class="embed-responsive embed-responsive-16by9">
+      <%= mdrender(lesson.public_feature).html_safe %>
+    </div>
+  </div>
+  </div>
+  <br>
+  <div class="container">
+  <% end %>
+  <div class="row top-pad mainrow mod-locked">
+    <div class="col-xs-12"> <p class='text-xs-center'><strong>Buy for $110 to Get Started</strong></p><hr>
+      <h3><%= lesson.title %></h3>
+      <%= mdrender(lesson.description).html_safe %>
+      <div class="lesson_grid_<%= lesson.id %> module_<%= lesson.id %>">
+        <% lesson.lesson_components.order(:order).each do |component| %>
+        <p class="btn btn-outline-primary btn-block">&mdash; Part <%= component.order %> &mdash; <br> <%= component.title %></a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+    <% end %>
+  </div>
+
+  <script>
+  $(".lesson_grid").hide();
+
+  $(".show_lesson_grid").click(function(e){
+    if ($("#module_" + $(this).data("module")).is(':hidden')) {
+      $("#module_" + $(this).data("module")).slideDown();
+      $(this).html("Hide Lessons");
+      $(this).blur();
+    }
+    else {
+      $("#module_" + $(this).data("module")).slideUp();
+      $(this).html("Show All Lessons");
+      $(this).blur();
+    }
+  });
+
+  $(document).ready(function() {
+    var elem = "#s" + window.location.href.split('#')[1];
+    $("html, body").delay(60).animate({scrollTop: $(elem).offset().top }, 2000);
+    var expand = window.location.href.split('_')[1];
+    $("#module_" + expand).delay(90).slideDown();
+  });
+  </script>

@@ -1,0 +1,44 @@
+<div class="container">
+
+    <h2 class="blank-heading text-xs-center"><%= @landing.title %></h2>
+    <p class="text-xs-center action"><%= link_to 'Back', landings_path, class: "btn btn-outline-primary" %>
+        <%= link_to 'Edit', edit_landing_path(@landing), class: "btn btn-outline-primary" %></p>
+
+    <div class="card">
+        <div class="card-block">
+            <p>
+                <strong>Title:</strong>
+                <%= @landing.title %>
+            </p>
+            <p>
+                <strong>Slug before:</strong>
+                <a href="https://assessmentninja.com/l/<%= @landing.slug_before %>"><%= @landing.slug_before %></a>
+            </p>
+            <p>
+                <strong>Slug after:</strong>
+                <a href="https://assessmentninja.com/l/<%= @landing.slug_after %>" class=""><%= @landing.slug_after %></a>
+            </p>
+            <p>
+                <strong>Mailchimp list ID:</strong>
+                <%= @landing.mailchimp_list %>
+            </p>
+            <p>
+              <strong>Mailchimp list name:</strong>
+              <a href="<%= @mc_list["subscribe_url_short"] %>"><%= @mc_list["name"] %></a>
+            </p>
+            <p>
+              <strong>Mailchimp list subscribers:</strong>
+              <%= @mc_list["stats"]["member_count"] %>
+            </p>
+
+            <hr>
+            <strong>Download:</strong>
+            <p class="data">
+              Present: <%= @landing.download? %><br>
+              Static URL: <%= @landing.download.url %><br>
+              Private URL: <%= @landing.download.expiring_url(50) %>
+            </p>
+        </div>
+    </div>
+
+</div>

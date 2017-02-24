@@ -1,0 +1,27 @@
+<div class="container">
+
+  <h2 class="blank-heading text-xs-center"></h2>
+  <p class="text-xs-center action"><%= link_to 'Back', replies_path, class: "btn btn-outline-primary" %> <%= link_to 'Edit', edit_reply_path(@reply), class: "btn btn-outline-primary" %></p>
+
+  <div class="card">
+    <div class="card-block">
+      <p>
+        <strong>Lesson component:</strong>
+        <%= @reply.lesson_component_id %>
+      </p>
+      <p>
+        <strong>User:</strong>
+        <%= @reply.user_id %>
+      </p>
+      <p>
+        <strong>Reply:</strong>
+        <%= if @reply.reply.present? then link_to @reply.reply.descriptive, @reply.reply else "top level" end %>
+      </p>
+      <p>
+        <strong>Body:</strong>
+        <%= @reply.body %>
+      </p>
+    </div>
+  </div>
+
+</div>

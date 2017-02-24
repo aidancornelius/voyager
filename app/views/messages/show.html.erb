@@ -1,0 +1,39 @@
+<div class="container">
+
+  <h2 class="blank-heading text-xs-center"></h2>
+  <p class="text-xs-center action"><%= link_to 'Back', messages_path, class: "btn btn-outline-primary" %> <%= link_to 'Edit', edit_message_path(@message), class: "btn btn-outline-primary" %></p>
+
+  <div class="card">
+    <div class="card-block">
+            <p>
+        <strong>User:</strong>
+        <%= @message.user_id %>
+      </p>
+            <p>
+        <strong>From user:</strong>
+        <%= @message.from_user_id %>
+      </p>
+            <p>
+        <strong>From thread:</strong>
+        <%= @message.from_thread_id %>
+      </p>
+            <p>
+        <strong>Title:</strong>
+        <%= @message.title %>
+      </p>
+            <p>
+        <strong>Body:</strong>
+        <%= @message.body %>
+      </p>
+            <p>
+        <strong>Link:</strong>
+        <%= @message.link %>
+      </p>
+            <p>
+        <strong>Read:</strong>
+        <%= @message.read %>
+      </p>
+          </div>
+  </div>
+
+</div>

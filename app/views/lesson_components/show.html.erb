@@ -1,0 +1,32 @@
+<% title "Admin: Details of #{@lesson_component.title}" %>
+<div class="container">
+
+  <h2 class="blank-heading text-xs-center"><%= @lesson_component.title %></h2>
+  <p class="text-xs-center action"><%= link_to 'Back', lesson_components_path, class: "btn btn-outline-primary" %> <%= link_to 'Edit', edit_lesson_component_path(@lesson_component), class: "btn btn-outline-primary" %> <a href="/modules/<%= @lesson_component.lesson.slug %>/<%= @lesson_component.order %>" class="btn btn-outline-danger" target="_blank">View Live</a></p>
+
+  <div class="card">
+    <div class="card-block">
+      <p>
+        <strong>Lesson:</strong>
+        <%= link_to @lesson_component.lesson.title, @lesson_component.lesson %>
+      </p>
+      <p>
+        <strong>Style:</strong>
+        <%= @lesson_component.style %>
+      </p>
+      <p>
+        <strong>Order:</strong>
+        <%= @lesson_component.order %>
+      </p>
+      <p>
+        <strong>Title:</strong>
+        <%= @lesson_component.title %>
+      </p>
+      <p>
+        <strong>Slug:</strong>
+        <%= @lesson_component.slug %>
+      </p>
+    </div>
+  </div>
+
+</div>

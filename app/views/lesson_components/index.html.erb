@@ -1,0 +1,31 @@
+<% title "Admin: Lesson Components" %>
+<div class="container">
+
+  <h2 class="blank-heading text-xs-center">Lesson Components</h2>
+
+  <p class="text-xs-center action"><%= link_to "Administration", admin_path, class: "btn btn-outline-primary" %> <%= link_to 'New Lesson Component', new_lesson_component_path, class: "btn btn-outline-primary" %></p>
+
+  <div class="card">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+              <th>Lesson</th>
+              <th>Order</th>
+              <th>Title</th>
+              <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @lesson_components.each do |lesson_component| %>
+          <tr>
+                <td><%= link_to lesson_component.lesson.title, lesson_component.lesson %></td>
+                <td><%= lesson_component.order %></td>
+                <td><%= lesson_component.title %></td>
+                <td><%= link_to 'Show', lesson_component, class: "btn btn-sm btn-outline-secondary" %> <%= link_to 'Edit', edit_lesson_component_path(lesson_component), class: "btn btn-sm btn-outline-secondary" %> <%= link_to 'Destroy', lesson_component, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

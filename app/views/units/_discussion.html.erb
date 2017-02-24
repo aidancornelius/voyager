@@ -1,0 +1,47 @@
+<div class="row top-pad mainrow">
+  <div class="col-xs-12">
+    <% @component.replies.where(reply_id: nil).order(:stars, :created_at, :id).each do |reply| %>
+      <p><%= link_to "Comment", "#comment-#{reply.id}", title: "permalink to this comment" %> by <%= link_to reply.user.firstname, "#{profile_url}/#{reply.user.id}" %> - <%= reply.when_was_it %> <%= if reply.reply.present? then "in reply to: <a href=\"#comment-#{reply.reply.id}\" class=\"btn btn-sm btn-outline-secondary\">#{reply.reply.descriptive}</a>".html_safe end %> <% if reply.user == current_user %><%= link_to "Delete my comment", reply_path(reply), method: :delete,  data: { confirm: 'Are you sure? If your comment has replies, they will lose context.' }, class: "btn btn-sm btn-outline-danger" %><% end %> <%= link_to "☆ #{reply.stars}", reply_star_path(reply), method: :post, class: "btn btn-sm btn-outline-secondary", title: "Starred #{reply.stars} times"%></span></p>
+      <div id="comment-<%= reply.id %>"><%= mdrender(reply.body).html_safe %></div>
+      <% if reply.replies.count >= 1; reply.replies.order(:created_at, :id).each do |thread_reply| %>
+      <br>
+      <blockquote class="blockquote">
+        <p><%= link_to "Comment", "#comment-#{thread_reply.id}", title: "permalink to this comment" %> by <%= link_to thread_reply.user.firstname, "#{profile_url}/#{thread_reply.user.id}" %> - <%= thread_reply.when_was_it %> <%= if thread_reply.reply.present? then "<a href=\"#comment-#{reply.id}\" class=\"btn btn-sm btn-outline-secondary\">In reply to: #{reply.descriptive}</a>".html_safe end %> <% if reply.user == current_user %><%= link_to "Delete my comment", reply_path(thread_reply), method: :delete,  data: { confirm: 'Are you sure? If your comment has replies, they will lose context.' }, class: "btn btn-sm btn-outline-danger" %><% end %></p>
+        <div id="comment-<%= reply.id %>"><%= mdrender(thread_reply.body).html_safe %></div>
+      </blockquote>
+      <% end %>
+      <p><a href="#comment-panel" data-reply-id="<%= reply.id %>" data-reply-author="<%= reply.user.firstname %>'s comment <%= reply.when_was_it %>" class="reply-btn btn btn-sm btn-outline-primary">reply to this thread</a></p>
+      <% else %>
+      <p><a href="#comment-panel" data-reply-id="<%= reply.id %>" data-reply-author="<%= reply.user.firstname %>'s comment <%= reply.when_was_it %>" class="reply-btn btn btn-sm btn-outline-primary">reply to this comment</a></p>
+      <% end %>
+    <hr>
+    <% end %>
+    <div id="comment-panel">
+      <p>Commenting as <%= link_to current_user.name, "#{profile_url}/#{current_user.id}" %> on <%= @component.title %> <span id="in-reply-to" class="text-danger">in reply to <span id="who"> </span>. <a href="#comment-panel" id="clear-reply" class="btn btn-sm btn-outline-secondary">Clear</a></span></p>
+      <%= form_for( @reply, class: "form-inline" ) do |f| %>
+      <div class="input-group">
+        <%= f.text_field :body, placeholder: "Comment", class: "form-control" %>
+        <%= f.hidden_field :lesson_component_id, :value => @component.id %>
+        <%= f.hidden_field :reply_id, :value => @reply.reply_id %>
+        <span class="input-group-btn"><%= f.submit("Add Comment", class: "btn btn-outline-primary") %></span>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+$("#in-reply-to").hide();
+
+$(".reply-btn").click( function() {
+  $("#reply_reply_id").attr("value", $(this).data("reply-id"));
+  $("#who").html($(this).data("reply-author"));
+  $("#in-reply-to").show();
+});
+
+$("#clear-reply").click( function() {
+  $("#reply_reply_id").attr("value", "");
+  $("#in-reply-to").hide();
+})
+
+</script>

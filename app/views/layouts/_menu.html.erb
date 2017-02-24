@@ -1,0 +1,65 @@
+<nav class="navbar navbar-light">
+  <div class="container">
+    <a class="navbar-logo-group" href="<%= root_url %>">
+      <%= image_tag("logo.svg", class: "logo") %>
+      <span class="navbar-brand text">Assessment Ninja</span>
+    </a>
+    <button class="navbar-toggler hidden-lg-up float-xs-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
+    <div class="collapse navbar-toggleable-md" id="navbarResponsive">
+      <% if !current_user_purchased? %>
+      <div class="hidden-lg-up"><br><br></div>
+      <ul class="nav navbar-nav float-lg-right">
+        <li class="nav-item">
+          <a class="nav-link" href="/about">Sensei</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/modules">Magic Mojo</a>
+        </li>
+        <% if !current_user %>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= new_user_session_path %>">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link ctaction" href="<%= new_user_registration_path %>">Start Now</a>
+        </li>
+        <% else %>
+        <li class="nav-item">
+          <a class="nav-link ctaction" href="<%= billing_path %>">Buy Now</a>
+        </li>
+        <% end %>
+      </ul>
+      <% else %>
+      <ul class="nav navbar-nav float-lg-right menu-space">
+        <li class="nav-item">
+          <a class="nav-link" href="/modules">Modules</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/" id="responsiveNavbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.firstname %><%= if current_user.messages.count > 0 then " (#{current_user.messages.count})" end %></a>
+          <div class="dropdown-menu" aria-labelledby="responsiveNavbarDropdown">
+            <a class="dropdown-item" href="<%= edit_user_registration_path %>">My Profile</a>
+            <a class="dropdown-item" href="<%= billing_path %>">Billing</a>
+            <a class="dropdown-item" href="/certificate">Certificate</a>
+            <a class="dropdown-item" href="<%= messages_path %>">Messages<%= if current_user.messages.count > 0 then " <span class='text-warning'>(#{current_user.messages.count})</span>".html_safe end %></a>
+            <% if current_user.is_administrator? %>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-success" href="/admin/">Administration</a>
+            <% end %>
+            <div class="dropdown-divider"></div>
+            <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "dropdown-item text-danger" %>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline float-lg-right search-box" id="search">
+        <input id="sbox" class="form-control" type="text" placeholder="Search" value="<%= params[:q] %>">
+        <button class="search-button btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <% end %>
+    </div>
+  </div>
+</nav>
+<div class="con-wrap">
+
+<div class="container">
+  <% if notice.present? %><br><%= alert_box notice, dismissible: true, context: :info %></p><% end %>
+  <% if alert.present? %><br><%= alert_box alert, dismissible: true, context: :danger %></p><% end %>
+</div>

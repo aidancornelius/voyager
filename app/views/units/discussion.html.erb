@@ -1,0 +1,20 @@
+<% title @component.title %>
+<div class="container">
+
+  <h2 class="blank-heading text-xs-center"><%= @component.title %></h2>
+  <p class="text-xs-center"><a href="/modules/" class="btn btn-outline-secondary">↑ Modules</a> <%= render partial: "fwdbck" %> <% if current_user.administrator? %><%= link_to "Edit Component", edit_lesson_component_path(@component), class: "btn btn-outline-danger" %><% end %></p>
+
+  <div class="row top-pad mainrow">
+    <div class="col-xs-12">
+      <%= mdrender(@component.body).html_safe %>
+    </div>
+  </div>
+
+  <% if @discussion %>
+  <%= render partial: "discussion" %>
+  <% end %>
+
+  <p class="text-xs-center"><%= render partial: "fwdbck" %></p>
+  <br>
+
+</div>

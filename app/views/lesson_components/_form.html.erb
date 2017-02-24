@@ -1,0 +1,48 @@
+<%= form_for(lesson_component, layout: :basic) do |f| %>
+  <% if lesson_component.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(lesson_component.errors.count, "error") %> prohibited this lesson_component from being saved:</h2>
+
+      <ul>
+      <% lesson_component.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.select :lesson_id, options_from_collection_for_select(Lesson.all, 'id', 'title', @lesson_component.lesson_id) %>
+  </div>
+
+  <div class="field">
+    <%# Please update these in views via UnitsController %>
+    <%= f.select :style, options_for_select({"Multimodal [+c]" => "1", "Multimodal [-c]" => "2", "Video [+c]" => "3", "Video [-c]" => "4", "Discussion [+c]" => "5"}, @lesson_component.style) %>
+  </div>
+
+  <div class="field">
+    <%= f.number_field :order %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :slug %>
+  </div>
+
+  <div class="field">
+      <%= f.file_field :feature, class: "form-control" %>
+  </div>
+
+
+  <div class="field">
+    <%= f.text_area :body %>
+    <%= simple_mde("body").html_safe %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

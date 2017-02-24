@@ -1,0 +1,21 @@
+<div class="container">
+
+  <h2 class="blank-heading text-xs-center">Mobile Notification Options</h2>
+  <p class="text-xs-center action"><%= link_to "Administration", admin_path, class: "btn btn-outline-primary" %></p>
+
+  <div class="row top-pad mainrow">
+    <% if current_user.mobile_number.present? %>
+      <p><strong>You are subscribed</strong></p>
+      <p>Sending notifications to <%= current_user.mobile_number %></p>
+      <%= link_to "Check Subscribed Status", "/notifications/check_subscribed_status", method: :post, class: "btn btn-outline-primary" %>
+      <%= link_to "Unsubscribe", "/notifications/remove_subscription", method: :delete, class: "btn btn-outline-danger", data: {confirm: "Are you sure you wish to deactivate notifications?"} %>
+    <% else %>
+      <p><strong>You are not yet subscribed</strong></p>
+      <%= form_tag("/notifications/add_subscription", method: :post) do %>
+        <p>Mobile Number (Format example: 61420000000)
+          <%= number_field_tag(:mobile_number, "", placeholder: "Mobile Number", class: "form-control") %></p>
+        <%= submit_tag("Add Mobile", class: "btn btn-outline-primary") %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

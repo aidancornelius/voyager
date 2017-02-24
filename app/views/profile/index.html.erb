@@ -1,0 +1,35 @@
+<div class="container">
+  <h2 class="blank-heading text-xs-center">🔐🙆🏻 Profiles</h2>
+  <p class="text-xs-center action"><%= link_to "Administration", admin_path, class: "btn btn-outline-primary" %></p>
+
+  <div class="card">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Admin</th>
+              <th>Owner</th>
+              <th>PayPal / Stripe</th>
+              <th>Confirmed</th>
+              <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+          <tr id="<%= user.id %>" class="user user-<%= user.id %> purchased-<%= user.purchased? %>">
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= if user.is_administrator? then "🔑 👍🏼" else "👎🏼" end %></td>
+                <td><%= if user.billing.present? then "👍🏼" else "👎🏼" end %></td>
+                <td><%= if user.billing.present? && user.billing.st_id.present? then "Stripe" elsif user.billing.present? && user.billing.pp_payer_id.present? then "PayPal" else "👎🏼" end %></td>
+                <td><%= if user.confirmed? then "👍🏼" else "👎🏼" end %></td>
+                <td><% if !user.billing.present? %><%= form_tag(give_free_upgrade_billing_path, method: :post) do %><%= hidden_field_tag(:user_id, user.id) %><%= submit_tag("Upgrade for Free", data: { confirm: 'Are you sure you want to give away our product?' }, class: "btn btn-sm btn-outline-danger") %><% end; end %> <%= link_to 'Show', "#{profile_path}/#{user.id}", class: "btn btn-sm btn-outline-secondary", target: "_blank" %> <%= link_to 'Destroy', profile_delete_path, method: :delete, data: { confirm: 'Are you sure? (don\'t delete yourself!)' }, class: "btn btn-sm btn-outline-danger" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>

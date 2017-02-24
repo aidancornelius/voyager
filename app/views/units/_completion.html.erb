@@ -1,0 +1,5 @@
+<% if (completion = Completion.where(user_id: current_user.id, lesson_component_id: @component.id)).count >= 1 %>
+<%= link_to "✘ mark as incomplete", completion_path(completion.last.id), class: "btn btn-outline-danger", method: :delete %>
+<% else %>
+<%= link_to "✔ mark as complete", completions_path(lesson_component_id: @component.id), class: "btn btn-outline-success", method: :post %>
+<% end %>

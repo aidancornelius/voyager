@@ -1,0 +1,21 @@
+<% title "Search" %>
+<div class="container">
+
+  <h2 class="blank-heading text-xs-center"><%= @lessons.count %> result(s)...</h2>
+
+  <% if @lessons.count <= 0 %>
+    <br><br>
+    <!-- nothing here... :( -->
+  <% end %>
+
+  <% @lessons.each do |lesson| %>
+  <div class="row top-pad mainrow">
+    <div class="col-xs-12">
+      <h2><%= lesson.title %></h2>
+      <p><%= lesson.description %></p>
+      <p><a href="<%= "/modules/#lesson-#{lesson.id}" %>" class="btn btn-outline-primary">View in context</a></p>
+    </div>
+  </div>
+  <% end %>
+
+</div>

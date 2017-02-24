@@ -1,0 +1,56 @@
+<%= form_for(landing, layout: :basic) do |f| %>
+  <% if landing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(landing.errors.count, "error") %> prohibited this landing from being saved:</h2>
+
+      <ul>
+      <% landing.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :slug_before %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :slug_after %>
+  </div>
+
+  <div class="field">
+    <%= f.text_area :body_before %>
+  </div>
+
+  <div class="field">
+    <%= f.text_area :body_after %>
+
+  </div>
+
+  <div class="field">
+    <%= f.select :mailchimp_list, options_for_select(@mc_lists["lists"].map {|list| ["[#{list['id']}] #{list['name']} - #{list["stats"]["member_count"]}", list['id']]}) %>
+  </div>
+
+  <div class="field">
+    <%= f.file_field :download, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= simple_mde("", true).html_safe %>
+<script>
+$('textarea').each(function() {
+    var simplemde = new SimpleMDE({
+        element: this,
+    });
+    simplemde.render();
+})
+</script>

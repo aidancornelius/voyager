@@ -1,0 +1,29 @@
+<%= form_for(reply, layout: :basic) do |f| %>
+  <% if reply.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reply.errors.count, "error") %> prohibited this reply from being saved:</h2>
+
+      <ul>
+      <% reply.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.select :lesson_component_id, options_from_collection_for_select(LessonComponent.all, 'id', 'title' ) %>
+  </div>
+
+  <div class="field">
+    <%= f.select :reply_id, options_from_collection_for_select(Reply.all, 'id', 'descriptive'), :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= f.text_area :body %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,47 @@
+<% title "Messages" %>
+<div class="container">
+
+    <h2 class="blank-heading text-xs-center">📦 Messages</h2>
+
+    <p class="text-xs-center action"><%= if current_user.administrator? then link_to "Administration", admin_path, class: "btn btn-outline-primary" end %>
+        <%= link_to 'Dashboard', dashboard_path, class: "btn btn-outline-primary" %>
+        <%= link_to 'Send message', new_message_path, class: "btn btn-outline-primary" %></p>
+
+    <% if @messages.count <= 0 %>
+    <br>
+    <p class="text-xs-center">No messages yet...</p>
+    <br><br>
+<% else %>
+
+    <% @messages.each do |message| %>
+    <div class="row top-pad mainrow">
+        <div class="col-xs-12">
+            <p class="float-xs-right">
+            <%= if message.from_user_id.present? then "👤 <a href='/profile/#{User.find(message.from_user_id).id}'>#{User.find(message.from_user_id).name}</a>".html_safe else "📧 <a href='#{message.link}'>Parent Thread</a>".html_safe end %>
+            </p>
+            <p>
+                <strong><%= message.title %></strong>
+            </p>
+              <% if current_user.administrator? && message.link == "#mandrill_whp_api" && eval(message.body) %>
+                <p>Email message from: <%= eval(message.body)["from_email"] %> Subject: <%= eval(message.body)["subject"] %></p>
+                <pre><%= eval(message.body)["spam_report"] %></pre>
+                <hr>
+                <div class="data">
+                  <%= eval(message.body)["html"].html_safe %>
+                </div>
+              <% else %>
+                <%= mdrender(message.body).html_safe %>
+              <% end %>
+            <hr>
+            <p>
+                <%= if !message.read? then link_to 'Mark as read', message, class: "btn btn-sm btn-outline-success" end %>
+                <% if current_user.administrator? then link_to 'Edit', edit_message_path(message), class: "btn btn-sm btn-outline-secondary" end %>
+                <%= link_to 'Delete', message, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %>
+            </p>
+        </div>
+    </div>
+    <% end %>
+
+    <% end %>
+
+</div>

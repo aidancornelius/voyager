@@ -1,0 +1,38 @@
+<% title "#{@user.firstname}'s Profile" %>
+<% description "#{@user.name} is learning online with Assessment Ninja. Join your colleagues on a Formative Assessment journey today." %>
+<div class="container">
+  <h2 class="blank-heading text-xs-center">🙆🏻 <%= @user.name %> <% if @user.is_administrator? %>🔑<% end %></h2>
+  <p class="text-xs-center">Joined <%= @user.created_at.strftime("%B %-d, %Y") %></p>
+
+  <p class="text-xs-center">Last here <%= @user.last_sign_in_at.strftime("%B %-d, %Y at %-l:%M %P") %></p>
+
+  <% if current_user && current_user.administrator? %>
+  <h5 id="purchase_data_header">Purchase Data:</h5>
+  <div class="data" id="purchase_data">
+    <%= @data %>
+  </div>
+  <h5 id="user_data_header">User Details:</h5>
+  <div class="data" id="user_data">
+    <%= @user.inspect %>
+  </div>
+
+  <script>
+  $("#user_data").click( function() { $("#user_data").hide(); $("#user_data_header").hide(); } );
+  $("#purchase_data").click( function() { $("#purchase_data").hide(); $("#purchase_data_header").hide(); } );
+  </script>
+  <% end %>
+
+  <% if @replies.count >= 1 %>
+  <% @replies.each do |reply| %>
+  <div class="row top-pad mainrow">
+    <div class="col-xs-12">
+      Comment by <%= reply.descriptive %> on <%= reply.lesson_component.title %> <%= if reply.reply.present? then "in reply to: #{reply.reply.descriptive}" end %> <% if reply.stars.present? %> <span class="btn btn-sm btn-outline-secondary">☆ <%= reply.stars %></span> <% end %>
+      <hr>
+      <%= mdrender(reply.body).html_safe %>
+    </div>
+  </div>
+  <% end %>
+  <% else %>
+  <br><br>
+  <% end %>
+</div>

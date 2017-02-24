@@ -1,0 +1,29 @@
+<% title('Admin: Landing Pages') %>
+<div class="container">
+
+  <h2 class="blank-heading text-xs-center">Landing &amp; Direct Marketing</h2>
+
+  <p class="text-xs-center action"><%= link_to "Administration", admin_path, class: "btn btn-outline-primary" %> <%= link_to 'New Landing', new_landing_path, class: "btn btn-outline-primary" %></p>
+
+  <div class="card">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+              <th>Title</th>
+              <th>Mailchimp list</th>
+              <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @landings.each do |landing| %>
+          <tr>
+                <td><%= landing.title %></td>
+                <td><%= landing.mailchimp_list %></td>
+                <td><%= link_to 'Show', landing, class: "btn btn-sm btn-outline-secondary" %> <%= link_to 'Edit', edit_landing_path(landing), class: "btn btn-sm btn-outline-secondary" %> <%= link_to 'Destroy', landing, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

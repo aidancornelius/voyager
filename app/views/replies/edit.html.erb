@@ -1,0 +1,13 @@
+<div class="container">
+
+  <h2 class="blank-heading text-xs-center">Editing Reply</h2>
+
+  <p class="text-xs-center action"><%= link_to 'Show', @reply, class: "btn btn-outline-primary" %> <%= link_to 'Back', replies_path, class: "btn btn-outline-primary" %>
+
+  <div class="card">
+    <div class="card-block">
+      <%= render 'form', reply: @reply %>
+    </div>
+  </div>
+
+</div>

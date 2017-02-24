@@ -1,0 +1,14 @@
+<% title "Admin: Editing #{@lesson_component.title}" %>
+<div class="container">
+
+  <h2 class="blank-heading text-xs-center">Editing Lesson Component</h2>
+
+  <p class="text-xs-center action"><%= link_to 'Show', @lesson_component, class: "btn btn-outline-primary" %> <%= link_to 'Back', lesson_components_path, class: "btn btn-outline-primary" %>
+
+  <div class="card">
+    <div class="card-block">
+      <%= render 'form', lesson_component: @lesson_component %>
+    </div>
+  </div>
+
+</div>

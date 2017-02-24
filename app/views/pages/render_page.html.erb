@@ -1,0 +1,42 @@
+<% title @page.title %>
+<% description "We're passionate about Formative Assessment as a way to lift engagement and outcomes in your classroom, meet the course creators and learn about the online learning journey you will undertake with Assessment Ninja." %>
+<div class="container">
+
+  <% if @page.present? %>
+
+  <% @page.page_sections.order(:order).each do |section| %>
+  <% if section.title.starts_with?("VIDEO") %>
+  <h2 class="blank-heading text-xs-center"><%= section.title.sub('VIDEO ', "").html_safe %></h2>
+  <br>
+  </div>
+  <div class="container-fluid video-box">
+  <div class="inside">
+    <div class="embed-responsive embed-responsive-16by9">
+      <%= mdrender(section.body).html_safe %>
+    </div>
+  </div>
+  </div>
+
+  <br>
+
+  <div class="container">
+  <% else %>
+  <h2 class="blank-heading text-xs-center"><%= section.title.html_safe %></h2>
+  <div class="row top-pad mainrow">
+    <%= mdrender(section.body).html_safe %>
+  </div>
+  <% end %>
+  <% end %>
+
+  <p class="text-xs-center">
+    <br>
+    <a href="<%= new_user_registration_path %>" class="btn btn-lg btn-outline-primary">Let's get started!</a>
+  </p>
+</div>
+
+<% else %>
+
+<%= @render.html_safe %>
+
+<% end %>
+<br>

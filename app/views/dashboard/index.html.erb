@@ -1,0 +1,47 @@
+<% title "Dashboard" %>
+<div class="container">
+
+    <h2 class="blank-heading text-xs-center">🎓 Welcome to your dashboard,
+        <%= current_user.firstname %>.</h2>
+
+    <p class="text-xs-center">
+        <a href="/modules" class="btn btn-outline-primary">Modules</a>
+        <a href="/messages" class="btn btn-outline-primary">Messages</a>
+        <a href="/certificate" class="btn btn-outline-primary">Certificate</a>
+    </p>
+
+    <div class="row top-pad mainrow">
+        <div class="col-xs-12">
+            <% if current_user.messages.count >= 1 %>
+            <p class="text-xs-center">Someone's popular! You have
+                <%= current_user.messages.count.humanize %>
+                new message<% if current_user.messages.count >= 2 %>s<% end %>.
+                <a href="<%= messages_path %>">Check them out</a>.</p>
+        <% else %>
+            <p class="text-xs-center">You have no messages waiting, write some comments in a topic to get replies from the community.</p>
+            <% end %>
+            <br>
+        </div>
+    </div>
+
+    <h2 class="blank-heading text-xs-center">🚀 Latest Module to Unlock</h2>
+
+    <div class="row top-pad mainrow">
+        <div class="col-xs-12">
+            <% if @latestLesson.present? %>
+            <h3><%= @latestLesson.title %></h3>
+            <%= mdrender(@latestLesson.description).html_safe %>
+            <% if (current_user.created_at + @latestLesson.unlock.weeks).past? %>
+            <hr>
+            <a href="/modules/#mj_<%= @latestLesson.id %>" class="btn btn-outline-success btn-block">View All Lessons</a>
+            <% end %>
+            <% end %>
+        </div>
+    </div>
+
+    <p class="text-xs-center">
+        <a href="/modules" class="btn btn-outline-primary">More Modules</a>
+    </p>
+    <br>
+
+</div>

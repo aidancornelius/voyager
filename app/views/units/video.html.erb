@@ -1,0 +1,19 @@
+<% title @component.title %>
+</div>
+<div class="container-fluid video-box">
+<div class="inside">
+  <div class="embed-responsive embed-responsive-16by9">
+    <%= mdrender(@component.body).html_safe %>
+  </div>
+  <br>
+  <p class="float-xs-right"><a href="/modules/" class="btn btn-outline-secondary">↑ Modules</a>  <%= render partial: "fwdbck" %></p>
+  <h3><%= @component.title %></h3>
+  <br>
+  <p class="text-xs-center"><%= render partial: "completion" %></p>
+</div>
+</div>
+<div class="container">
+<% if @discussion %>
+  <%= render partial: "discussion" %>
+<% end %>
+</div>

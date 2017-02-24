@@ -1,0 +1,39 @@
+<%= form_for(page_section, layout: :basic) do |f| %>
+  <% if page_section.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(page_section.errors.count, "error") %> prohibited this page_section from being saved:</h2>
+
+      <ul>
+      <% page_section.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <% if params[:page] || @page_section.page_id then page = params[:page] || @page_section.page_id end %>
+    <%= f.select :page_id, options_from_collection_for_select(Page.all, 'id', 'title', page) %>
+  </div>
+
+  <div class="field">
+    <%= f.number_field :order %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :title %>
+    Wrapped in <%= '<h2 class="blank-heading text-xs-center">' %> unless exactly equal to "VIDEO"
+  </div>
+  <br>
+
+  <div class="field">
+    <%= f.text_area :body %>
+    <%= simple_mde("body").html_safe %>
+    Wrapped in <%= '<div class="row top-pad mainrow">' %>
+  </div>
+  <br>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
