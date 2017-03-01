@@ -1,27 +1,25 @@
 <% title "Modules" %>
-<% description "Assessment Ninja is loaded with theory, and practical suggestions for implementing Assessment as Learning. Check out each of the modules here." %>
 <div class="container">
 
-  <h2 class="blank-heading text-xs-center">🚀 Modules</h2>
-  <p class="text-xs-center"><% if current_user.present? %><%= link_to 'Dashboard', dashboard_path, class: "btn btn-outline-primary" %><% else %><%= link_to "Buy Now", new_user_registration_path, class: "btn btn-outline-primary" %><% end %></p>
+  <h2 class="blank-heading text-center">🚀 <%= @course.title %> Modules</h2>
 
   <% if @lessons.count < 1 %>
-  <p class="text-xs-center">There are no modules here, yet!</p>
+  <p class="text-center">There are no modules here, yet!</p>
   <br><br>
   <% else %>
   <% @lessons.each do |lesson| %>
   <% if current_user.present? %>
-  <div id="smj_<%= lesson.id %>" class="row top-pad mainrow<%= if !(current_user.created_at + lesson.unlock.weeks).past? then " mod-locked" end %>">
-    <div class="col-xs-12"> <%= if !(current_user.created_at + lesson.unlock.weeks).past? then "<p class='text-xs-center'><strong>Available in #{time_ago_in_words(current_user.created_at + lesson.unlock.weeks)}</strong></p><hr>".html_safe end %>
+  <div id="smj_<%= lesson.id %>" class="row top-pad content<%= if !(current_user.created_at + lesson.unlock.weeks).past? then " mod-locked" end %>">
+    <div class="col-12"> <%= if !(current_user.created_at + lesson.unlock.weeks).past? then "<p class='text-center'><strong>Available in #{time_ago_in_words(current_user.created_at + lesson.unlock.weeks)}</strong></p><hr>".html_safe end %>
       <h3><%= lesson.title %></h3>
       <%= mdrender(lesson.description).html_safe %>
       <% if (current_user.created_at + lesson.unlock.weeks).past? %>
       <hr>
-      <p class="text-xs-center"><a href="#toggle_module_<%= lesson.id %>" class="btn btn-outline-success btn-block show_lesson_grid" data-module="<%= lesson.id %>">Show All Lessons</a></p>
+      <p class="text-center"><a href="#toggle_module_<%= lesson.id %>" class="btn btn-outline-success btn-block show_lesson_grid" data-module="<%= lesson.id %>">Show All Lessons</a></p>
       <div id="module_<%= lesson.id %>" class="lesson_grid lesson_grid_<%= lesson.id %> module_<%= lesson.id %>">
         <br>
         <% lesson.lesson_components.order(:order).each do |component| %>
-        <a href="<%= "/modules/#{lesson.slug}/#{component.slug}" %>" class="btn <% if (completion = Completion.where(user_id: current_user.id, lesson_component_id: component.id)).count >= 1 %>btn-outline-secondary<% else %>btn-outline-primary<% end %> btn-block">&mdash; Part <%= component.order %> <% if completion.present? %>&mdash; Completed <% end %> &mdash; <br> <%= component.title %></a>
+        <a href="<%= "/course/#{lesson.course.slug}/modules/#{lesson.slug}/#{component.slug}" %>" class="btn <% if (completion = Completion.where(user_id: current_user.id, lesson_component_id: component.id)).count >= 1 %>btn-outline-secondary<% else %>btn-outline-primary<% end %> btn-block">&mdash; Part <%= component.order %> <% if completion.present? %>&mdash; Completed <% end %> &mdash; <br> <%= component.title %></a>
         <% end %>
       </div>
       <% end %>
@@ -29,7 +27,7 @@
   </div>
   <% else %>
   <% if lesson.public_feature.present? %>
-  <h2 class="blank-heading text-xs-center">Inside <%= lesson.title %></h2>
+  <h2 class="blank-heading text-center">Inside <%= lesson.title %></h2>
   <br>
   </div>
   <div class="container-fluid video-box">
@@ -42,8 +40,8 @@
   <br>
   <div class="container">
   <% end %>
-  <div class="row top-pad mainrow mod-locked">
-    <div class="col-xs-12"> <p class='text-xs-center'><strong>Buy for $110 to Get Started</strong></p><hr>
+  <div class="row top-pad content mod-locked">
+    <div class="col-12"> <p class='text-center'><strong>Buy for $110 to Get Started</strong></p><hr>
       <h3><%= lesson.title %></h3>
       <%= mdrender(lesson.description).html_safe %>
       <div class="lesson_grid_<%= lesson.id %> module_<%= lesson.id %>">

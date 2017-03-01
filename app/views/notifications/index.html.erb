@@ -1,9 +1,9 @@
 <div class="container">
 
-  <h2 class="blank-heading text-xs-center">Mobile Notification Options</h2>
-  <p class="text-xs-center action"><%= link_to "Administration", admin_path, class: "btn btn-outline-primary" %></p>
+  <h2 class="blank-heading text-center">Mobile Notification Options</h2>
+  <p class="text-center action"></p>
 
-  <div class="row top-pad mainrow">
+  <div class="row top-pad content">
     <% if current_user.mobile_number.present? %>
       <p><strong>You are subscribed</strong></p>
       <p>Sending notifications to <%= current_user.mobile_number %></p>

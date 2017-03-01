@@ -1,11 +1,11 @@
 <% title @component.title %>
 <div class="container">
 
-  <h2 class="blank-heading text-xs-center"><%= @component.title %></h2>
-  <p class="text-xs-center"><a href="/modules/" class="btn btn-outline-secondary">↑ Modules</a> <%= render partial: "fwdbck" %> <% if current_user.administrator? %><%= link_to "Edit Component", edit_lesson_component_path(@component), class: "btn btn-outline-danger" %><% end %></p>
+  <h2 class="blank-heading text-center"><%= @component.title %></h2>
+  <p class="text-center"><a href="/course/<%= "#{params[:course_slug]}" %>/modules/" class="btn btn-outline-secondary">↑ Modules</a> <%= render partial: "fwdbck" %> <% if current_user.administrator? %><%= link_to "Edit Component", edit_lesson_component_path(@component), class: "btn btn-outline-danger" %><% end %></p>
 
-  <div class="row top-pad mainrow">
-    <div class="col-xs-12">
+  <div class="row top-pad content">
+    <div class="col-12">
       <%= mdrender(@component.body).html_safe %>
     </div>
   </div>
@@ -14,7 +14,7 @@
   <%= render partial: "discussion" %>
   <% end %>
 
-  <p class="text-xs-center"><%= render partial: "fwdbck" %></p>
+  <p class="text-center"><%= render partial: "fwdbck" %></p>
   <br>
 
 </div>

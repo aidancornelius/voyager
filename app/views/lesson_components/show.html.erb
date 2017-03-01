@@ -1,8 +1,8 @@
 <% title "Admin: Details of #{@lesson_component.title}" %>
 <div class="container">
 
-  <h2 class="blank-heading text-xs-center"><%= @lesson_component.title %></h2>
-  <p class="text-xs-center action"><%= link_to 'Back', lesson_components_path, class: "btn btn-outline-primary" %> <%= link_to 'Edit', edit_lesson_component_path(@lesson_component), class: "btn btn-outline-primary" %> <a href="/modules/<%= @lesson_component.lesson.slug %>/<%= @lesson_component.order %>" class="btn btn-outline-danger" target="_blank">View Live</a></p>
+  <h2 class="blank-heading text-center"><%= @lesson_component.title %></h2>
+  <p class="text-center action"><%= link_to 'Back', lesson_components_path, class: "btn btn-outline-primary" %> <%= link_to 'Edit', edit_lesson_component_path(@lesson_component), class: "btn btn-outline-primary" %> /course/<%= "#{params[:course_slug]}" %>/modules/<%= @lesson_component.lesson.slug %>/<%= @lesson_component.order %>" class="btn btn-outline-danger" target="_blank">View Live</a></p>
 
   <div class="card">
     <div class="card-block">

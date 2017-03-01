@@ -1,5 +1,5 @@
 <br>
-<div class="text-xs-center text-primary" id="module-progress">Module Progress</div>
+<div class="text-center text-primary" id="module-progress">Module Progress</div>
 <progress class="progress" value="<%= @component.order %>" max="<%= @component.lesson.lesson_components.count %>" aria-describedby="module-progress">
   <div class="progress">
     <span class="progress-bar" style="width: <%= (@component.order.to_f / @component.lesson.lesson_components.count.to_f) * 100 %>%;"></span>

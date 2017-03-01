@@ -1,4 +1,4 @@
-class RepliesController < ApplicationController
+class RepliesController < AdminController
   before_action :set_reply, only: [:show, :edit, :update, :destroy]
   before_action :require_administrator!, except: [:create, :destroy, :star]
   before_action :authenticate_user!
@@ -27,7 +27,7 @@ class RepliesController < ApplicationController
       @stars = 1
     end
     @reply.update( stars: @stars )
-    redirect_to "/modules/#{@reply.lesson_component.lesson.slug}/#{@reply.lesson_component.order}#comment-#{@reply.id}", notice: "Comment starred"
+    redirect_to "/course/#{@reply.lesson_component.lesson.course.slug}/modules/#{@reply.lesson_component.lesson.slug}/#{@reply.lesson_component.order}#comment-#{@reply.id}", notice: "Comment starred"
   end
 
   # GET /replies/1/edit
@@ -47,12 +47,12 @@ class RepliesController < ApplicationController
           if @reply.reply.present? && @reply.reply.user_id.present?
             message_user(@reply.reply.user_id, "New reply to your comment #{@reply.lesson_component.title}", "#{current_user.firstname} replied to your comment on #{@reply.lesson_component.title} at #{@reply.created_at.strftime("%B %-d, %Y at %-l:%M %P")}", "/modules/#{@reply.lesson_component.lesson.slug}/#{@reply.lesson_component.order}#comment-#{@reply.id}")
           end
-          redirect_to "/modules/#{@reply.lesson_component.lesson.slug}/#{@reply.lesson_component.order}#comment-#{@reply.id}", notice: "Comment added"
+          redirect_to "/course/#{@reply.lesson_component.lesson.course.slug}/modules/#{@reply.lesson_component.lesson.slug}/#{@reply.lesson_component.order}#comment-#{@reply.id}", notice: "Comment added"
          }
         format.json { render :show, status: :created, location: @reply }
       else
         format.html {
-          redirect_to "/modules/#{@reply.lesson_component.lesson.slug}/#{@reply.lesson_component.order}#comment-panel", notice: @reply.errors
+          redirect_to "/course/#{@reply.lesson_component.lesson.course.slug}/modules/#{@reply.lesson_component.lesson.slug}/#{@reply.lesson_component.order}#comment-panel", notice: @reply.errors
         }
         format.json { render json: @reply.errors, status: :unprocessable_entity }
       end
@@ -79,7 +79,7 @@ class RepliesController < ApplicationController
     @reply.destroy
     respond_to do |format|
       format.html {
-          redirect_to "/modules/#{@reply.lesson_component.lesson.slug}/#{@reply.lesson_component.order}#comment-panel", notice: "Comment was successfully destroyed"
+          redirect_to "/course/#{@reply.lesson_component.lesson.course.slug}/modules/#{@reply.lesson_component.lesson.slug}/#{@reply.lesson_component.order}#comment-panel", notice: "Comment was successfully destroyed"
       }
       format.json { head :no_content }
     end

@@ -1,11 +1,15 @@
 <% title "Admin: Details of #{@lesson.title}" %>
 <div class="container">
 
-  <h2 class="blank-heading text-xs-center"><%= @lesson.title %></h2>
-  <p class="text-xs-center action"><%= link_to 'Back', lessons_path, class: "btn btn-outline-primary" %> <%= link_to 'Edit', edit_lesson_path(@lesson), class: "btn btn-outline-primary" %></p>
+  <h2 class="blank-heading text-center"><%= @lesson.title %></h2>
+  <p class="text-center action"><%= link_to 'Back', lessons_path, class: "btn btn-outline-primary" %> <%= link_to 'Edit', edit_lesson_path(@lesson), class: "btn btn-outline-primary" %></p>
 
   <div class="card">
     <div class="card-block">
+      <p>
+        <strong>Course:</strong>
+        <%= link_to @lesson.course.title, @lesson.course %>
+      </p>
       <p>
         <strong>Slug:</strong>
         <%= @lesson.slug %>
@@ -42,9 +46,9 @@
     </div>
   </div>
 
-  <h2 class="blank-heading text-xs-center">Components</h2>
+  <h2 class="blank-heading text-center">Components</h2>
 
-  <p class="text-xs-center action"><%= link_to 'New Component', new_lesson_component_path, class: "btn btn-outline-primary" %></p>
+  <p class="text-center action"><%= link_to 'New Component', new_lesson_component_path, class: "btn btn-outline-primary" %></p>
 
   <div class="card">
     <table class="table table-striped table-hover">

@@ -6,10 +6,10 @@
     <%= mdrender(@component.body).html_safe %>
   </div>
   <br>
-  <p class="float-xs-right"><a href="/modules/" class="btn btn-outline-secondary">↑ Modules</a>  <%= render partial: "fwdbck" %></p>
+  <p class="float-xs-right"><a href="/course/<%= "#{params[:course_slug]}" %>/modules/" class="btn btn-outline-secondary">↑ Modules</a>  <%= render partial: "fwdbck" %></p>
   <h3><%= @component.title %></h3>
   <br>
-  <p class="text-xs-center"><%= render partial: "completion" %></p>
+  <p class="text-center"><%= render partial: "completion" %></p>
 </div>
 </div>
 <div class="container">

@@ -1,7 +1,6 @@
 class CompletionsController < ApplicationController
   before_action :set_completion, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :purchase_first!
 
   # POST /completions
   def create
@@ -11,18 +10,18 @@ class CompletionsController < ApplicationController
     @completion.lesson_component_id = params[:lesson_component_id]
 
     if @completion.save
-      redirect_to "/modules/#{@completion.lesson_component.lesson.slug}/#{@completion.lesson_component.order}", notice: "Yes! Lesson completed. Congratulations on finishing, move on to the next lesson below."
+      redirect_to "/course/#{@completion.lesson_component.lesson.course.slug}/modules/#{@completion.lesson_component.lesson.slug}/#{@completion.lesson_component.slug}", notice: "Yes! Lesson completed. Congratulations on finishing, move on to the next lesson below."
     else
-      redirect_to "/modules", notice: "Hmm, looks like you've already completed that lesson!"
+      redirect_to "/course/#{@completion.lesson_component.lesson.course.slug}/modules", notice: "Hmm, looks like you've already completed that lesson!"
     end
   end
 
   # DELETE /completions/1
   def destroy
     if @completion.destroy
-      redirect_to "/modules/#{@completion.lesson_component.lesson.slug}/#{@completion.lesson_component.order}", notice: "Starting fresh? That's cool. This lesson is no longer marked as complete."
+      redirect_to "/course/#{@completion.lesson_component.lesson.course.slug}/modules/#{@completion.lesson_component.lesson.slug}/#{@completion.lesson_component.slug}", notice: "Starting fresh? That's cool. This lesson is no longer marked as complete."
     else
-      redirect_to "/modules", notice: "Hmm, looks like you've already completed that lesson!"
+      redirect_to "/course/#{@completion.lesson_component.lesson.course.slug}/modules", notice: "Hmm, looks like you've already completed that lesson!"
     end
   end
 

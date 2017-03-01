@@ -1,9 +1,9 @@
 class UnitsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
-  before_action :purchase_first!, except: [:index]
+  before_action :authenticate_user!
   before_action :find_component, only: [:lesson_component]
   def index
-    @lessons = Lesson.where(visible: true).order(:unlock)
+    find_course
+    @lessons = Lesson.where(visible: true, course: @course).order(:unlock)
   end
 
   def lesson_component
@@ -12,7 +12,16 @@ class UnitsController < ApplicationController
   end
 
   private
+
+  def find_course
+    @course = Course.find_by_slug(params[:course_slug])
+    if !@course.present?
+      redirect_to "/not_found"
+    end
+  end
+
   def find_lesson
+    find_course
     @lesson = Lesson.find_by_slug(params[:module_slug])
   end
 
@@ -24,15 +33,15 @@ class UnitsController < ApplicationController
     if !@component
       @component = @lesson.lesson_components.find_by_slug(params[:component_slug])
     else
-      redirect_to "/modules/#{@lesson.slug}/#{@component.slug}"
+      redirect_to "/course/#{@course.slug}/modules/#{@lesson.slug}/#{@component.slug}"
     end
 
     if !@component.present?
       @module ||= Lesson.find_by_slug(params[:module_slug])
       if @module.present?
-        redirect_to "#{units_path}/#mj_#{@module.id}"
+        redirect_to "/course/#{@course.slug}/modules/#mj_#{@module.id}"
       else
-        redirect_to units_path
+        redirect_to "/course/#{@course.slug}/modules/"
       end
     else
       @style = find_style(@component.style)

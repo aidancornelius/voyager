@@ -16,5 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
+  s.post_install_message = "VOYAGER: RUN - rails voyager:install:migrations\nVOYAGER: CHECK - routes.rb"
+
   s.add_dependency "rails", "~> 5.0.1"
 end

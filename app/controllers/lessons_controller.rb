@@ -1,8 +1,5 @@
-class LessonsController < ApplicationController
+class LessonsController < AdminController
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
-  before_action :require_administrator!
-
   # GET /lessons
   # GET /lessons.json
   def index
@@ -71,6 +68,6 @@ class LessonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lesson_params
-      params.require(:lesson).permit(:title, :slug, :author, :description, :visible, :unlock, :tag_list, :public_feature)
+      params.require(:lesson).permit(:title, :course_id, :slug, :author, :description, :visible, :unlock, :tag_list, :public_feature)
     end
 end

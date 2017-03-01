@@ -1,4 +1,4 @@
-class LessonComponentsController < ApplicationController
+class LessonComponentsController < AdminController
   before_action :set_lesson_component, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :require_administrator!

@@ -1,5 +1,12 @@
-<h1>New Course</h1>
+<div class="container">
 
-<%= render 'form', course: @course %>
+  <h2 class="blank-heading text-center">New Course</h2>
+  <p class="text-center action"><%= link_to 'Back', courses_path, class: "btn btn-outline-primary" %></p>
 
-<%= link_to 'Back', courses_path %>
+  <div class="card">
+    <div class="card-block">
+      <%= render 'form', course: @course %>
+    </div>
+  </div>
+
+</div>

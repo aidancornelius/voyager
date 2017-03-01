@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="field">
+    <%= f.select :course_id, options_from_collection_for_select(Course.all, 'id', 'title', @lesson.course) %>
+  </div>
+
+  <div class="field">
     <%= f.text_field :title %>
   </div>
 
