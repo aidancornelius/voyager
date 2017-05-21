@@ -9,6 +9,7 @@
     <table class="table table-striped table-hover">
       <thead>
         <tr>
+              <th>Course</th>
               <th>Title</th>
               <th>Slug</th>
               <th>Author</th>
@@ -22,6 +23,7 @@
       <tbody>
         <% @lessons.each do |lesson| %>
           <tr>
+                <td><%= link_to lesson.course.title, lesson.course %></td>
                 <td><%= lesson.title %></td>
                 <td><%= lesson.slug %></td>
                 <td><%= lesson.author %></td>

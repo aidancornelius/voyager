@@ -1,0 +1,9 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <li class="breadcrumb-item"><a href="/courses">Courses</a></li>
+  <% if @component.present? %><li class="breadcrumb-item"><a href="/course/<%= @course.slug %>/modules/"><%= @course.title %></a></li>
+  <li class="breadcrumb-item active"><%= @component.title %></li> <% else %>
+  <li class="breadcrumb-item active"><%= @course.title %></li>
+  <% end %>
+</ol>
+<br>

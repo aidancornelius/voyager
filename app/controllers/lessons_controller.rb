@@ -3,7 +3,7 @@ class LessonsController < AdminController
   # GET /lessons
   # GET /lessons.json
   def index
-    @lessons = Lesson.all
+    @lessons = Lesson.all.order(:course_id, :unlock)
   end
 
   # GET /lessons/1

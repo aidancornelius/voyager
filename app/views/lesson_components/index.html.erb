@@ -9,7 +9,8 @@
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-              <th>Lesson</th>
+              <th>Course</th>
+              <th>Module</th>
               <th>Order</th>
               <th>Title</th>
               <th>Actions</th>
@@ -19,6 +20,7 @@
       <tbody>
         <% @lesson_components.each do |lesson_component| %>
           <tr>
+                <td><%= link_to lesson_component.lesson.course.title, lesson_component.lesson.course %></td>
                 <td><%= link_to lesson_component.lesson.title, lesson_component.lesson %></td>
                 <td><%= lesson_component.order %></td>
                 <td><%= lesson_component.title %></td>
