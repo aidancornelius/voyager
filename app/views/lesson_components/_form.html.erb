@@ -12,7 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.select :lesson_id, options_from_collection_for_select(Lesson.all, 'id', 'title', @lesson_component.lesson_id) %>
+    <%= f.select :lesson_id, option_groups_from_collection_for_select(Course.all, :lessons, :title, :id, :title, @lesson_component.lesson_id) %>
+
   </div>
 
   <div class="field">

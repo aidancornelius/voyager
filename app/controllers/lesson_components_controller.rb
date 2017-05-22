@@ -6,7 +6,7 @@ class LessonComponentsController < AdminController
   # GET /lesson_components
   # GET /lesson_components.json
   def index
-    @lesson_components = LessonComponent.all.order(:lesson_id, :order)
+      @lesson_components = LessonComponent.all.order(:lesson_id, :order)
   end
 
   # GET /lesson_components/1
