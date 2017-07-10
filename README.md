@@ -3,6 +3,26 @@ A partial backend to a course system. Hacky at best, not currently maintained
 
 ## Usage
 
+Add this (or similar) junk to your routes...
+
+
+```
+resources :completions
+get 'certificate', to: 'certificate#index'
+get 'pdcertificate', to: 'certificate#generate'
+resources :messages
+resources :lesson_components
+resources :replies do
+ post 'star'
+end
+get '/course/:course_slug/modules', to: 'units#index'
+get '/course/:course_slug/modules/:module_slug/:component_slug', to: 'units#lesson_component'
+resources :lessons
+resources :courses do
+ get 'dashboard'
+end
+```
+
 ## Installation
 Add this line to your application's Gemfile:
 
@@ -23,6 +43,7 @@ $ gem install voyager
 ### Finally
 
 Run - rails voyager:install:migrations
+
 Check - routes.rb
 
 ## License
