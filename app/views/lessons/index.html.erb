@@ -5,6 +5,13 @@
 
   <p class="text-center action"> <%= link_to 'New Lesson', new_lesson_path, class: "btn btn-outline-primary" %></p>
 
+  <%= form_tag(lessons_path, method: :get) do %>
+  <div style="max-width: 320px; margin:auto;">
+    <p><%= select_tag('course', options_from_collection_for_select(Course.all, 'id', 'title'), class: "form-control") %></p>
+    <p class="text-center"><%= submit_tag('Filter', class: "btn btn-outline-primary") %></p>
+  </div>
+  <% end %>
+
   <div class="card">
     <table class="table table-striped table-hover">
       <thead>
@@ -22,7 +29,7 @@
 
       <tbody>
         <% @lessons.each do |lesson| %>
-          <tr>
+          <tr <%= if params[:course].present? && lesson.course.id != params[:course].to_i then 'style="display: none;"'.html_safe end %>>
                 <td><%= link_to lesson.course.title, lesson.course %></td>
                 <td><%= lesson.title %></td>
                 <td><%= lesson.slug %></td>
