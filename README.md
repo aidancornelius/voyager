@@ -6,7 +6,7 @@ A partial backend to a course system. Hacky at best, not currently maintained
 Add this (or similar) junk to your routes...
 
 
-```
+```ruby
 resources :completions
 get 'certificate', to: 'certificate#index'
 get 'pdcertificate', to: 'certificate#generate'
@@ -42,9 +42,15 @@ $ gem install voyager
 
 ### Finally
 
-Run - rails voyager:install:migrations
+Run
+```ruby
+$ rails voyager:install:migrations
+```
 
-Check - routes.rb
+Check
+```bash
+routes.rb
+```
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
