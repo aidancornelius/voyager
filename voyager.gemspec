@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Aidan Cornelius-Bell"]
   s.email       = ["aidan@teachersolutions.com.au"]
   s.homepage    = "https://www.teachersolutions.com.au"
-  s.summary     = "Summary of Voyager."
-  s.description = "Description of Voyager."
+  s.summary     = "Voyager Course Module Lesson System"
+  s.description = "A partial backend to a course system. Hacky at best, not currently maintained."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
