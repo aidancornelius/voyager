@@ -10,5 +10,10 @@
   <%= @course.slug %>
 </p>
 
+<p>
+  <strong>Product:</strong>
+  <%= if @course.product.present? then @course.product.title else "No association" end %>
+</p>
+
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>
