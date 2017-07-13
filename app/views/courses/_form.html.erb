@@ -20,7 +20,7 @@
   </div>
 
   <div class="field">
-    <%= f.select :product_id, options_from_collection_for_select(Product.all, id, title, course.product_id), include_blank: true, class: "form-control" %>
+    <%= f.select :product_id, options_from_collection_for_select(Product.all, 'id', 'title', course.product_id), include_blank: true, class: "form-control" %>
   </div>
 
   <div class="actions">
