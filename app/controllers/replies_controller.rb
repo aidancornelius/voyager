@@ -45,7 +45,7 @@ class RepliesController < AdminController
       if @reply.save
         format.html {
           if @reply.reply.present? && @reply.reply.user_id.present?
-            message_user(@reply.reply.user_id, "New reply to your comment #{@reply.lesson_component.title}", "#{current_user.firstname} replied to your comment on #{@reply.lesson_component.title} at #{@reply.created_at.strftime("%B %-d, %Y at %-l:%M %P")}", "/modules/#{@reply.lesson_component.lesson.slug}/#{@reply.lesson_component.order}#comment-#{@reply.id}")
+            message_user(@reply.reply.user_id, "New reply to your comment #{@reply.lesson_component.title}", "#{current_user.firstname} replied to your comment on #{@reply.lesson_component.title} at #{@reply.created_at.strftime("%B %-d, %Y at %-l:%M %P")}", "/course/#{@reply.lesson_component.lesson.course.slug}/modules/#{@reply.lesson_component.lesson.slug}/#{@reply.lesson_component.order}#comment-#{@reply.id}")
           end
           redirect_to "/course/#{@reply.lesson_component.lesson.course.slug}/modules/#{@reply.lesson_component.lesson.slug}/#{@reply.lesson_component.order}#comment-#{@reply.id}", notice: "Comment added"
          }
