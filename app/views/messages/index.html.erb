@@ -1,11 +1,23 @@
 <% title "Messages" %>
 <div class="container">
 
-    <h2 class="blank-heading text-center">📦 Messages</h2>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            Account
+        </li>
+        <li class="breadcrumb-item active">
+            Messages
+        </li>
+    </ol>
 
-    <p class="text-center action"><%= if current_user.administrator? then link_to "Administration", admin_path, class: "btn btn-outline-primary" end %>
-        <%= link_to 'Dashboard', dashboard_path, class: "btn btn-outline-primary" %>
-        <%= link_to 'Send message', new_message_path, class: "btn btn-outline-primary" %></p>
+    <%= render("devise/shared/profile_nav.html.erb") %>
+
+    <br>
+
+        <h2 class="blank-heading text-center">📦 Messages</h2>
 
     <% if @messages.count <= 0 %>
     <br>
