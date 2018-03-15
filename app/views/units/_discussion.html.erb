@@ -1,6 +1,6 @@
 <div class="row top-pad content">
   <div class="col-12">
-    <% @component.replies.where(reply_id: nil).order(:stars, :created_at, :id).each do |reply| %>
+    <% @component.replies.where(reply_id: nil).order(:stars, created_at: :desc).each do |reply| %>
       <p><%= link_to "Comment", "#comment-#{reply.id}", title: "permalink to this comment" %> by <%= link_to reply.user.firstname, "/profiles/#{reply.user.id}" %> - <%= reply.when_was_it %> <%= if reply.reply.present? then "in reply to: <a href=\"#comment-#{reply.reply.id}\" class=\"btn btn-sm btn-outline-secondary\">#{reply.reply.descriptive}</a>".html_safe end %> <% if reply.user == current_user %><%= link_to "Delete my comment", reply_path(reply), method: :delete,  data: { confirm: 'Are you sure? If your comment has replies, they will lose context.' }, class: "btn btn-sm btn-outline-danger" %><% end %> <%= link_to "☆ #{reply.stars}", reply_star_path(reply), method: :post, class: "btn btn-sm btn-outline-secondary", title: "Starred #{reply.stars} times"%></span></p>
       <div id="comment-<%= reply.id %>"><%= mdrender(reply.body).html_safe %></div>
       <% if reply.replies.count >= 1; reply.replies.order(:created_at, :id).each do |thread_reply| %>
