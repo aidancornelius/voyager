@@ -32,7 +32,7 @@
                 <td><%= link_to lesson_component.lesson.title, lesson_component.lesson %></td>
                 <td><%= case lesson_component.style when 1; "Multimodal Comments"; when 2; "Multimodal"; when 3; "Video Comments"; when 4; "Video"; when 5; "Discussion" end; %></td>
                 <td><%= lesson_component.order %></td>
-                <td><%= lesson_component.title %></td>
+                <td><%= lesson_component.title %> <small><br>@ <%= lesson_component.created_at.strftime("%-d %B %Y at %-l:%M%p") %></small></td>
                 <td><%= link_to 'Show', lesson_component, class: "btn btn-sm btn-outline-secondary" %> <%= link_to 'Edit', edit_lesson_component_path(lesson_component), class: "btn btn-sm btn-outline-secondary" %> <%= link_to 'Destroy', lesson_component, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %></td>
           </tr>
         <% end %>
@@ -40,4 +40,3 @@
     </table>
   </div>
 </div>
-
