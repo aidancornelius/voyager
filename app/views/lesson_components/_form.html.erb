@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.select :lesson_id, option_groups_from_collection_for_select(Course.all, :lessons, :title, :id, :title, @lesson_component.lesson_id) %>
-
+    <% if @lesson_component.lesson_id then @lc = @lesson_component.lesson_id else @lc = LessonComponent.last.lesson_id end %>
+    <%= f.select :lesson_id, option_groups_from_collection_for_select(Course.all, :lessons, :title, :id, :title, @lc) %>
   </div>
 
   <div class="field">
