@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["aidan@teachersolutions.com.au"]
   s.homepage    = "https://www.teachersolutions.com.au"
   s.summary     = "Voyager Course Module Lesson System"
-  s.description = "A partial backend to a course system. Hacky at best, not currently maintained."
+  s.description = "A partial backend to an e-learning course system. Hacky at best."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

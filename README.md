@@ -1,5 +1,5 @@
 # Voyager
-A partial backend to a course system. Hacky at best, not currently maintained
+A partial backend to an e-learning course system. Hacky at best.
 
 ## Usage
 
