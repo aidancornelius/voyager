@@ -18,6 +18,15 @@
     <br>
 
         <h2 class="blank-heading text-center">📦 Messages</h2>
+        <% if current_user.administrator? %>
+        <p class="text-center">
+          <% if params[:all] == "true" %>
+          <a href="/messages.html?all=false" class="btn btn-outline-primary">Only show messages sent to me</a>
+          <% else %>
+          <a href="/messages.html?all=true" class="btn btn-outline-primary">Show messages sent to all users</a>
+          <% end %>
+        </p>
+        <% end %>
 
     <% if @messages.count <= 0 %>
     <br>
@@ -46,9 +55,13 @@
               <% end %>
             <hr>
             <p>
+                <% if message.from_user_id == current_user.id %>
                 <%= if !message.read? then link_to 'Mark as read', message, class: "btn btn-sm btn-outline-success" end %>
                 <% if current_user.administrator? then link_to 'Edit', edit_message_path(message), class: "btn btn-sm btn-outline-secondary" end %>
-                <%= link_to 'Delete', message, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-outline-danger" %>
+                <%= link_to 'Hide message', message, method: :delete, class: "btn btn-sm btn-outline-danger" %>
+                <% else %>
+                <em>This message belongs to another user. View the message and the context in the <a href='<%= message.link %>'>parent thread</a>.
+                <% end %>
             </p>
         </div>
     </div>
