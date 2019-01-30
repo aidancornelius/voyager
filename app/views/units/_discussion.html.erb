@@ -23,7 +23,7 @@
         <%= f.text_field :body, placeholder: "Comment", class: "form-control" %>
         <%= f.hidden_field :lesson_component_id, :value => @component.id %>
         <%= f.hidden_field :reply_id, :value => @reply.reply_id %>
-        <span class="input-group-btn"><%= f.submit("Add Comment", class: "btn btn-outline-primary") %></span>
+        <span class="input-group-append input-group-btn"><%= f.submit("Add Comment", class: "btn btn-outline-primary") %></span>
       </div>
       <% end %>
     </div>
