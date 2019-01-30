@@ -8,6 +8,6 @@ class NotificationMailer < ApplicationMailer
   def new_message(email, user, link)
     @user = user
     @link = link
-    mail ( to: email )
+    mail( to: email )
   end
 end
