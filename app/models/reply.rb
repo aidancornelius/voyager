@@ -22,7 +22,7 @@ class Reply < ApplicationRecord
     # Here we need ot go on a bit of a goose chase to build the URL for this reply:
     lesson_component_for_reply = LessonComponent.find(self.lesson_component_id)
     urlbuild = "https://naturalmaths.com.au/course/#{lesson_component_for_reply.lesson.course.slug}/modules/#{lesson_component_for_reply.lesson.slug}/#{lesson_component_for_reply.slug}"
-    NotificationMailer.new_message("aidan@teachersolutions.com.au", self.user, urlbuild).deliver
+    NotificationMailer.new_message("aidan@teachersolutions.com.au, annbaker111@gmail.com", self.user, urlbuild).deliver
   end
 
   def thread_id
